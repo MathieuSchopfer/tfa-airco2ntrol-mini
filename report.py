@@ -108,4 +108,4 @@ if __name__ == '__main__':
             plt.ylabel('CO2 [ppm]')
             plt.title(f'CO2 concentration over the last {_plot_range/60:.0f} min')
 
-            aco2m.watch(1)
+            aco2m.watch()

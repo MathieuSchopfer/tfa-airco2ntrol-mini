@@ -1,4 +1,4 @@
-Cross-platform Python logger for TFA Dostmann Airco2ntrol Mini CO2 monitor (31.5006.02) relying on HIDAPI library.
+Cross-platform Python logger for [TFA Dostmann Airco2ntrol Mini CO2 monitor](https://www.tfa-dostmann.de/en/product/co2-monitor-airco2ntrol-mini-31-5006/) (31.5006.02) relying on HIDAPI library.
 
 # Prerequisites
 
