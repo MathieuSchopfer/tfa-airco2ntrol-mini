@@ -27,8 +27,8 @@ import airco2ntrol_mini as aco2m
 _co2_line = None
 _last_point = None
 _plot_range = 1800  # Plot range in seconds
-_warning_threshold = 800
-_danger_threshold = 1200
+_warning_threshold = 600
+_danger_threshold = 1000
 
 
 def _format_axis_time(t, pos=None):
