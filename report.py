@@ -28,7 +28,7 @@ _co2_line = None
 _last_point = None
 _plot_range = 1800  # Plot range in seconds
 _warning_threshold = 600
-_danger_threshold = 1000
+_danger_threshold = 800
 
 
 def _format_axis_time(t, pos=None):
@@ -47,7 +47,7 @@ def update_plot(t, co2, _):
     xsup = timestamps[0]+_plot_range if timestamps[-1]-timestamps[0] < _plot_range else timestamps[-1]
     plt.xlim(timestamps[0], xsup)
 
-    ymax_default = 1500
+    ymax_default = 1000
     ysup = ymax_default if co2s[-1] < ymax_default else co2s[-1]+100
     plt.ylim(0, ysup)
 
