@@ -1,0 +1,6 @@
+# To activate use command:   sudo udevadm control --reload-rules
+# then unplug and replug MiniMon
+
+KERNEL=="hidraw*", ATTRS{idVendor}=="04d9", ATTRS{idProduct}=="a052", GROUP="plugdev", MODE="0660"
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="04d9", ATTRS{idProduct}=="a052", GROUP="plugdev", MODE="0660"
+
