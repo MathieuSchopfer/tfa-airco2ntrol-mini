@@ -11,9 +11,9 @@ This project needs:
 
 See what package your distribution provides for the HIDAPI library.
 
-## MacOS
+## macOS
 
-The HIDAPI library may be easily installed on MacOS with Homebrew:
+The HIDAPI library may be easily installed on macOS with Homebrew:
 ```shell
 brew install hidapi
 ```
@@ -36,6 +36,18 @@ If the script cannot access the device, update your system's udev rules as follo
  2. Copy file `90-airco2ntrol_mini.rules` to `/etc/udev/rules.d`
  3. Reload the rules with `sudo udevadm control --reload-rules`
  4. Plug your device.
+
+## matplotlib on macOS
+
+If the plotting window does not show up, you may need to configure the matplotlib backend. Edit file `~/.matplotlib/matplotlibrc` and add or edit
+```
+backend: TkAgg
+```
+
+Note that you need the Python Tcl/Tk interface. You can install it with
+```shell
+brew install python-tk
+```
 
 # Credits
 
