@@ -19,6 +19,7 @@
 
 from datetime import datetime
 from matplotlib import pyplot as plt
+from matplotlib import dates
 import numpy as np
 import airco2ntrol_mini as aco2m
 
@@ -28,10 +29,6 @@ _last_point = None
 _plot_range = 1800  # Plot range in seconds
 _warning_threshold = 600
 _danger_threshold = 800
-
-
-def _format_axis_time(t, pos=None):
-    return datetime.fromtimestamp(t).time().isoformat(timespec='minutes')
 
 
 def update_plot(t, co2, _):
@@ -103,7 +100,7 @@ if __name__ == '__main__':
 
             # Customize look
             ax = plt.gca()
-            ax.get_xaxis().set_major_formatter(_format_axis_time)
+            ax.get_xaxis().set_major_formatter(dates.DateFormatter('%H:%M'))
             plt.grid(color='whitesmoke', linestyle=':', linewidth=1)
             plt.xlabel('Time')
             plt.ylabel('CO2 [ppm]')
