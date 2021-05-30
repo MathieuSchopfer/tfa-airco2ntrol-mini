@@ -18,7 +18,6 @@
 
 
 from datetime import datetime
-import time
 from matplotlib import pyplot as plt
 import numpy as np
 import airco2ntrol_mini as aco2m
@@ -32,7 +31,7 @@ _danger_threshold = 800
 
 
 def _format_axis_time(t, pos=None):
-    return datetime.fromtimestamp(t).strftime('%H:%M')
+    return datetime.fromtimestamp(t).time().isoformat(timespec='minutes')
 
 
 def update_plot(t, co2, _):
@@ -69,19 +68,21 @@ if __name__ == '__main__':
         print('Could not open the device, check that it is correctly plugged:', e)
     else:
         # Create log file
-        timestamp = datetime.now().strftime('%Y%m%dT%H%M%S')
+        timestamp = datetime.now().isoformat(timespec='seconds')
         fileName = f'./airco2ntrol_{timestamp}.csv'
         with open(fileName, 'at', encoding='UTF-8', errors='replace', buffering = 1) as logFile:
 
             # CSV logging
             def logger(t, co2, temperature):
 
+                _t = datetime.fromtimestamp(t)
+
                 # Log to file
-                timestamp = datetime.fromtimestamp(t).strftime('%Y%m%dT%H%M%S')
+                timestamp = _t.isoformat(timespec='seconds')
                 logFile.write(f'{timestamp:s},{co2:.0f},{temperature:.1f}\n')
 
                 # Console output
-                timestamp = datetime.fromtimestamp(t).strftime('%H:%M:%S')
+                timestamp = _t.time().isoformat(timespec='seconds')
                 print(f'{timestamp:s}\t{co2:.0f} ppm\t\t{temperature:.1f} °C', end='\r')
 
             aco2m.register_watcher(logger)
