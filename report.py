@@ -93,18 +93,18 @@ if __name__ == '__main__':
             # Plotting
             aco2m.register_watcher(update_plot)
             plt.ion()  # Activate interactive plotting
-            _co2_line, = plt.plot([], [], linewidth=2, color='tab:blue')  # Init line
-            _last_point, = plt.plot([], [], marker='o', color='tab:blue')  # Init line
+            _co2_line, = plt.plot([], [], linewidth=2, color='black')  # Init line
+            _last_point, = plt.plot([], [], marker='o', color='black')  # Init line
 
             # Add background colours
-            plt.axhspan(0, _warning_threshold, color='limegreen', alpha=0.5)
-            plt.axhspan(_warning_threshold, _danger_threshold, color='yellow', alpha=0.5)
-            plt.axhspan(_danger_threshold, 3000, color='tomato', alpha=0.5)  # 3000 ppm is the device measurement limit
+            plt.axhspan(0, _warning_threshold, color='tab:green', alpha=0.5)
+            plt.axhspan(_warning_threshold, _danger_threshold, color='tab:orange', alpha=0.5)
+            plt.axhspan(_danger_threshold, 3000, color='tab:red', alpha=0.5)  # 3000 ppm is the device measurement limit
 
             # Customize look
             ax = plt.gca()
             ax.get_xaxis().set_major_formatter(_format_axis_time)
-            plt.grid(color='lightgrey', linestyle=':', linewidth=1)
+            plt.grid(color='whitesmoke', linestyle=':', linewidth=1)
             plt.xlabel('Time')
             plt.ylabel('CO2 [ppm]')
             plt.title(f'CO2 concentration over the last {_plot_range/60:.0f} min')
