@@ -18,6 +18,7 @@
 
 import argparse
 from datetime import datetime
+import os.path
 import pandas as pd
 from matplotlib import pyplot as plt
 from matplotlib import dates
@@ -43,6 +44,12 @@ plt.axhspan(0, _warning_threshold, color='tab:green', alpha=0.5)
 plt.axhspan(_warning_threshold, _danger_threshold, color='tab:orange', alpha=0.5)
 plt.axhspan(_danger_threshold, 3000, color='tab:red', alpha=0.5)  # 3000 ppm is the device measurement limit
 
+# Customize
+parts = os.path.splitext(os.path.basename(args.file))[0].split('_')
+info = ' '.join(parts[:-1])
+date = datetime.fromisoformat(parts[-1]).date().isoformat()
+plt.title(f'{info} - {date}')
 plt.gca().get_xaxis().set_major_formatter(dates.DateFormatter('%H:%M'))
 plt.grid(color='whitesmoke', linestyle=':', linewidth=1)
+
 plt.show()
