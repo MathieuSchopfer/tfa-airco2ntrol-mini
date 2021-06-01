@@ -18,8 +18,9 @@ data = pd.read_csv(args.file, usecols=['Time', 'CO2[ppm]'], converters={'Time': 
 # Plot line
 data.plot(ylabel='CO2 [ppm]', legend=False, color='black', linewidth=2)
 ymax_default = 1000
-ysup = ymax_default if data['CO2[ppm]'][-1] < ymax_default else data['CO2[ppm]'][-1]+100
-plt.ylim(0, ysup)
+co2max = data['CO2[ppm]'].max()
+ysup = ymax_default if co2max < ymax_default-150 else co2max+150
+plt.ylim(300, ysup)
 
 # Add background colours
 plt.axhspan(0, _warning_threshold, color='tab:green', alpha=0.5)

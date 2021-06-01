@@ -47,8 +47,9 @@ def update_plot(t, co2, _):
     plt.xlim(timestamps[0], xsup)
 
     ymax_default = 1000
-    ysup = ymax_default if co2s[-1] < ymax_default else co2s[-1]+100
-    plt.ylim(0, ysup)
+    co2max = np.max(co2s)
+    ysup = ymax_default if co2max < ymax_default-150 else co2max+150
+    plt.ylim(300, ysup)
 
     _co2_line.set_xdata(timestamps)
     _co2_line.set_ydata(co2s)
