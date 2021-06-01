@@ -16,18 +16,24 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
+import argparse
 from datetime import datetime
+import os
+import os.path
 from matplotlib import pyplot as plt
 import numpy as np
 import airco2ntrol_mini as aco2m
-
 
 _co2_line = None
 _last_point = None
 _plot_range = 1800  # Plot range in seconds
 _warning_threshold = 600
 _danger_threshold = 800
+
+parser = argparse.ArgumentParser(description='Measure and log a CO2')
+parser.add_argument('--prefix', type=str, help='file name prefix, default `airco2ntrol`', default='airco2ntrol')
+parser.add_argument('--dir', type=str, help='log file output directory', default='logs')
+args = parser.parse_args()
 
 
 def _format_axis_time(t, pos=None):
@@ -68,10 +74,15 @@ if __name__ == '__main__':
     except OSError as e:
         print('Could not open the device, check that it is correctly plugged:', e)
     else:
+        # Create output directory
+        odir = os.path.expanduser(args.dir)
+        if not os.path.exists(odir):
+            os.mkdir(odir)
+
         # Create log file
         timestamp = datetime.now().isoformat(timespec='seconds')
-        fileName = f'./airco2ntrol_{timestamp}.csv'
-        with open(fileName, 'at', encoding='UTF-8', errors='replace', buffering = 1) as logFile:
+        filePath = os.path.join(odir, f'{args.prefix}_{timestamp}.csv')
+        with open(filePath, 'at', encoding='UTF-8', errors='replace', buffering = 1) as logFile:
 
             # CSV logging
             def logger(t, co2, temperature):

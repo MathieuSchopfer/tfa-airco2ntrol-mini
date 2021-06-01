@@ -25,10 +25,8 @@ from matplotlib import dates
 _warning_threshold = 600
 _danger_threshold = 800
 
-
 parser = argparse.ArgumentParser(description='Plot a CO2 data set')
 parser.add_argument('file', type=str, help='file containing the data to plot')
-
 args = parser.parse_args()
 
 data = pd.read_csv(args.file, usecols=['Time', 'CO2[ppm]'], converters={'Time': datetime.fromisoformat}, index_col='Time')
