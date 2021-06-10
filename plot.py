@@ -52,4 +52,5 @@ plt.title(f'{info} - {date}')
 plt.gca().get_xaxis().set_major_formatter(dates.DateFormatter('%H:%M'))
 plt.grid(color='whitesmoke', linestyle=':', linewidth=1)
 
+plt.tight_layout()
 plt.show()
