@@ -30,7 +30,7 @@ parser = argparse.ArgumentParser(description='Plot a CO2 data set')
 parser.add_argument('file', type=str, help='file containing the data to plot')
 args = parser.parse_args()
 
-data = pd.read_csv(args.file, usecols=['Time', 'CO2[ppm]'], converters={'Time': datetime.fromisoformat}, index_col='Time')
+data = pd.read_csv(args.file, usecols=['Time', 'CO2[ppm]'], converters={'Time': datetime.fromisoformat}, index_col='Time', comment='#')
 
 # Plot line
 data.plot(ylabel='CO2 [ppm]', legend=False, color='black', linewidth=2)
