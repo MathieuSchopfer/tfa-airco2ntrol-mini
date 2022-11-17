@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from datetime import datetime
+from datetime import datetime, timezone
 import airco2ntrol_mini as aco2m
 
 if __name__ == "__main__":
@@ -28,7 +28,7 @@ if __name__ == "__main__":
     else:
 
         def logger(t, co2, temperature):
-            _t = datetime.fromtimestamp(t)
+            _t = datetime.fromtimestamp(t, tz=timezone.utc)
             timestamp = _t.isoformat(timespec="seconds")
             print(f"{timestamp:s},{co2:.0f},{temperature:.1f}", flush=True)
 
