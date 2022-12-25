@@ -55,7 +55,7 @@ def _read_data():
 
 
 def _exit():
-    print('\nExiting ...')
+    print('\nExiting ...', file=sys.stderr)
     _device.close()
     sys.exit(0)
 
