@@ -20,12 +20,22 @@ brew install hidapi
 
 # Getting stared
 
-Just run the logger script with:
+## Full logging and display
+
+Run the logger script with:
 ```shell
 python3 report.py
 ```
 
-The script will create a log file `airco2ntrol_<date>T<time>.csv` and open a plotting window.
+The script will create a log file `airco2ntrol_<date>T<time>.csv` and open a plotting window. For convenience, we provide the `plot.py` script to plot an existing log file.
+
+## Simple CLI logger
+
+```shell
+python3 log.py
+```
+
+If you just want to d
 
 # Troubleshooting
 
