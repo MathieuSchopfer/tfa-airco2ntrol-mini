@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2021  Mathieu Schopfer
+# Copyright (C) 2021-2023  Mathieu Schopfer
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -80,11 +80,11 @@ def register_watcher(callback):
     _watchers.append(callback)
 
 
-def watch(delay=10):
+def watch(interval=10):
     """Watch the device and call all the callbacks registered with :func:register_watcher once the device returns a data set.
 
     Parameters:
-        delay (int): Data acquisition period in seconds.
+        delay (int): Data acquisition interval in seconds.
     """
 
     global _device, _watching
@@ -99,6 +99,6 @@ def watch(delay=10):
             w(t, co2, temperature)
         # Wait until reading further data and handle keyboard interruptions gracefully
         try:
-            time.sleep(delay)
+            time.sleep(interval)
         except KeyboardInterrupt:
             _exit()

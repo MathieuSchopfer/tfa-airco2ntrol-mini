@@ -1,7 +1,7 @@
 #! /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-# Copyright (C) 2021  Mathieu Schopfer
+# Copyright (C) 2021-2023  Mathieu Schopfer
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -26,13 +26,14 @@ import airco2ntrol_mini as aco2m
 
 _co2_line = None
 _last_point = None
-_plot_range = 1800  # Plot range in seconds
 _warning_threshold = 600
 _danger_threshold = 800
 
 parser = argparse.ArgumentParser(description='Measure and log a CO2')
 parser.add_argument('--prefix', type=str, help='file name prefix, default `airco2ntrol`', default='airco2ntrol')
 parser.add_argument('--dir', type=str, help='log file output directory', default='logs')
+parser.add_argument('--range', type=float, help='plot time range in hours', default=8)
+parser.add_argument('--interval', type=int, help='sampling time interval in seconds', default=300)
 args = parser.parse_args()
 
 
@@ -43,13 +44,15 @@ def _format_axis_time(t, pos=None):
 def update_plot(t, co2, _):
     timestamps = np.append(_co2_line.get_xdata(), t)
     co2s = np.append(_co2_line.get_ydata(), co2)
+    plot_range_s = args.range*3600  # Plot range in seconds
+
 
     # Remove data out of plot time range
-    k = np.flatnonzero(timestamps[-1]-timestamps < _plot_range)
+    k = np.flatnonzero(timestamps[-1]-timestamps < plot_range_s)
     timestamps = timestamps[k]
     co2s = co2s[k]
 
-    xsup = timestamps[0]+_plot_range if timestamps[-1]-timestamps[0] < _plot_range else timestamps[-1]
+    xsup = timestamps[0]+plot_range_s if timestamps[-1]-timestamps[0] < plot_range_s else timestamps[-1]
     plt.xlim(timestamps[0], xsup)
 
     ymax_default = 1000
@@ -119,6 +122,10 @@ if __name__ == '__main__':
             plt.grid(color='whitesmoke', linestyle=':', linewidth=1)
             plt.xlabel('Time')
             plt.ylabel('CO2 [ppm]')
-            plt.title(f'CO2 concentration over the last {_plot_range/60:.0f} min')
 
-            aco2m.watch()
+            # Title specifies time range in hours or minutes
+            range = f'{args.range:.2f}' if args.range >= 1 else f'{args.range*60:.0f}'
+            units = 'hours' if args.range >= 1 else 'minutes'
+            plt.title(f'CO2 concentration over the last {range} {units}')
+
+            aco2m.watch(args.interval)
